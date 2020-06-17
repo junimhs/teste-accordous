@@ -25,17 +25,17 @@ Route::group(['namespace' => 'Api'], function() {
     /**
      * Route Company
      */
-    Route::post('/company', 'CompanyController@store');
+    Route::post('company', 'CompanyController@store');
 
     /**
      * Route User
      */
-    Route::post('/company/{url}/users', 'UserController@store');
+    Route::post('company/{url}/users', 'UserController@store');
 
     /**
      * Route Auth Sanctum
      */
-    Route::post('/sanctum/token', 'Auth\AuthController@auth');
+    Route::post('sanctum/token', 'Auth\AuthController@auth');
 
     /**
      * Route Authenticate
@@ -44,8 +44,12 @@ Route::group(['namespace' => 'Api'], function() {
         /**
          * Route Provider
          */
-        Route::get('/provider', 'ProviderController@index');
-        Route::post('/provider', 'ProviderController@store');
-        Route::delete('/provider/{url}', 'ProviderController@destroy');
+        Route::apiResource('provider', 'ProviderController');
+        Route::get('total-payment', 'ProviderController@payment');
     });
+
+    /**
+     * Route Active Provider
+     */
+    Route::get('active-provider/{id}', 'ProviderController@active')->name('active.provider');
 });

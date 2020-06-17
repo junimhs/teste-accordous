@@ -18,8 +18,6 @@ class CompanyController extends Controller
 
     public function store(CompanyRequest $request)
     {
-        $company = $this->repository->create($request->all());
-
-        return $company;
+        return $this->repository->create($request->all());
     }
 }

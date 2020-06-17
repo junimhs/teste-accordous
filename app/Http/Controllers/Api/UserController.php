@@ -22,8 +22,7 @@ class UserController extends Controller
         $company = $this->company->where('url', $urlCompany)->first();
 
         if(!$company) {
-            $json['error'] = "Company invalid.";
-            return $json;
+            return ['error' => 'Company invalid.'];
         }
 
         $data = $request->all();
