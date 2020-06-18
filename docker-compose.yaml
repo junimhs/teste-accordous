@@ -46,13 +46,11 @@ services:
 
   cron:
     build:
-      context: docker
+      context: Dockerfile
       dockerfile: .docker/supevisor
-      args:
-        IMAGE: bhcosta90/php:7.1.cron
     volumes:
       - ./:/var/www/html/
-      - ./.docker/spdata:/etc/supervisor/conf.d/
+      - ./.docker/supervisor/conf:/etc/supervisor/conf.d/
     links:
       - app
     container_name: cron
