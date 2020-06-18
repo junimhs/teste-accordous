@@ -12,7 +12,6 @@ services:
     depends_on:
       - db
 
-
   nginx:
     build: .docker/nginx
     container_name: nginx
@@ -46,10 +45,10 @@ services:
 
   cron:
     build:
-      context: Dockerfile
-      dockerfile: .docker/supevisor
+      context: .docker/supervisor
+      dockerfile: Dockerfile
     volumes:
-      - ./:/var/www/html/
+      - ./:/var/www/
       - ./.docker/supervisor/conf:/etc/supervisor/conf.d/
     links:
       - app
