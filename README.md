@@ -35,6 +35,9 @@ $ cd teste-accordous
 $ MAIL_USERNAME=
 $ MAIL_PASSWORD=
 
+# Se estiver usando windows execute o comando abaixo ou no git bash ou no cmder
+$ dos2unix .docker\entrypoint.sh
+
 # Execute o docker-compose
 $ docker-compose up -d
 
