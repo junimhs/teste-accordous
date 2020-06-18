@@ -43,17 +43,6 @@ services:
     networks:
       - app-network
 
-  cron:
-    build:
-      context: .docker/supervisor
-      dockerfile: Dockerfile
-    volumes:
-      - ./:/var/www/
-      - ./.docker/supervisor/conf:/etc/supervisor/conf.d/
-    links:
-      - app
-    container_name: cron
-
 networks:
   app-network:
     driver: bridge
