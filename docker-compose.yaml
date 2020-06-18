@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: app
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 40s ./.docker/entrypoint.sh
+    volumes:
+      - .:/var/www
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+
+  nginx:
+    build: .docker/nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+    networks:
+      - app-network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=accordous
+      - MYSQL_ROOT_PASSWORD=docker
+      - MYSQL_USER=root
+    networks:
+      - app-network
+
+  cron:
+    build:
+      context: docker
+      dockerfile: .docker/supevisor
+      args:
+        IMAGE: bhcosta90/php:7.1.cron
+    volumes:
+      - ./:/var/www/html/
+      - ./.docker/spdata:/etc/supervisor/conf.d/
+    links:
+      - app
+    container_name: cron
+
+networks:
+  app-network:
+    driver: bridge

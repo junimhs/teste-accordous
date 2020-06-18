@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class ProviderObserver
 {
     /**
-     * Handle the provider "creating" event.
+     * Handle the provider "created" event.
      *
      * @param  \App\Models\Provider  $provider
      * @return void
@@ -16,5 +16,6 @@ class ProviderObserver
     public function creating(Provider $provider)
     {
         $provider->url = Str::kebab($provider->name);
+        cache()->clear();
     }
 }
