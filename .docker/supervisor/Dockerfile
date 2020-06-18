@@ -8,7 +8,7 @@ COPY entrypoint.sh /srv/commands.sh
 
 RUN chmod +x /srv/commands.sh
 
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 # ENTRYPOINT [ "php-fpm" ]
 ENTRYPOINT ["/srv/commands.sh"]
