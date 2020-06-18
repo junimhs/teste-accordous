@@ -11,6 +11,8 @@
 |
 */
 
+use App\Models\Provider;
+
 Route::get('/', function () {
     return view('welcome');
 });

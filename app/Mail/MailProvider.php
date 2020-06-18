@@ -11,7 +11,7 @@ class MailProvider extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $provider, $link;
+    private $provider;
 
     /**
      * Create a new message instance.
@@ -30,8 +30,8 @@ class MailProvider extends Mailable
      */
     public function build()
     {
-        $this->link = route('active.provider', ['id' => $this->provider->id]);
+        $link = route('active.provider', ['id' => $this->provider->id]);
 
-        return $this->view('mail.index');
+        return $this->markdown('mail.index')->with(['link' => $link, 'name' => $this->provider->name]);
     }
 }
